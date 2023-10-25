@@ -1,0 +1,85 @@
+% Exam question booklets must only have the exam and qn options enabled
+\documentclass[exam,qn]{yqteach}
+
+%% Add in any additional settings needed here
+\usepackage{minted}
+\usemintedstyle{bw}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% set the appropriate details for the module here
+\input{module_details}
+
+% Write the details of the exam here
+\setdocumenttitle{Final Assessment}
+\setduedate{1 January 2000}
+\settimeallowed{1 hour}
+\settotalscore{100}
+\settotalweight{20}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\maketitle
+
+\begin{instructions}
+    % page count, question count, total score, total weightage and plagiarism/cheating notice are already pre-loaded
+    \item This is an \textbf{open-book}, \textbf{open-internet} assessment. You are allowed to refer to materials and access any resources (online or otherwise), except:
+    \begin{itemize}
+        \item You are \textbf{NOT allowed} to communicate with anyone. You must force-close your email client, messaging applications like Telegram, WeChat, etc before starting the quiz.
+        \item You are \textbf{NOT allowed} to post on any forums, such as Reddit, StackOverflow etc. as this constitutes communicating with others.
+        \item You are \textbf{NOT allowed} to use ChatGPT or similar tools using Large Language Models (LLMs) to generate answers.
+    \end{itemize}
+    \item You are \textbf{allowed} to use any other application of your choice, such as using the Python interpreter, MS Excel, other IDEs etc.
+    \item \textbf{Mobile phones and smartwatches should be turned off.}
+\end{instructions}
+
+% Use the \examsection command to start an exam section. The first argument is the section title, and the second argument is the total marks of this section
+\examsection{Multiple Choice Questions}{2}
+
+
+% Use the \q command to start a question. The argument denotes the number of marks this question is worth.
+% For example, \q{3} gives a new question worth 3 marks.
+% You may also add an additional topic like \q[Algebra]{4} to give Question 1 (Algebra) [4 marks].
+\q{1} Which of the following statements is \textbf{not} a fundamental concept in security?
+% Use the letteroptions environment for MCQ letter options
+\begin{letteroptions}
+    \item Assume Breach: organizations should take active steps to mitigate, monitor, detect and deal with threats to their applications and systems.
+    \item Maximum Functionality: privileged users (like administrators) should be given the maximum amount of access to features of their applications to deal with threats swiftly.
+    \item Defence-in-Depth: Having multiple layers of security so that threats are mitigated even if they successfully gets around one security measure.
+    \item Attack Surface Reduction: creating smaller systems that have a lower attack surface so that there are fewer vectors that an attacker may take to exploit the application.
+\end{letteroptions}
+
+\q{1} Which of the following is \textbf{not} an example of Defence-in-Depth?
+\begin{letteroptions}
+    \item Requiring that clients authenticate themselves with an application using a username and password pair, in addition to proving the ownership of a mobile device they registered previously.
+    \item Performing input validation on the client-side on top of input validation on the server side.
+    \item Using SameSite (with the strict option) cookies in conjunction with adding anti-CSRF tokens onto forms to prevent Cross-Site Request Forgeries (CSRFs).
+    \item Performing password hashing on the client-side instead of performing password hashing on the server side.
+\end{letteroptions}
+
+\examsection{Short Answer Questions}{3}
+There are two short answer questions below. Keep your answers simple and concise.
+
+\q{3} Suppose we have a statement performing an SQL query from un-sanitized user input \texttt{someinput}:
+
+\begin{minted}{javascript}
+const p = req.body.someinput
+const q = await db.query(`SELECT * FROM table WHERE a = '${p}';`)
+\end{minted}
+Clearly, if the user enters something like \mintinline{text}{'} (just a single quotation mark), the query would become\\
+\mintinline{text}{SELECT * FROM table WHERE a = ''';} which is malformed, and thus the query would throw an exception.
+
+However, if prepared statements (parameterized queries) are used, then the user input is sanitized and encoded so that the query is no longer malformed.
+
+Charlie says, "as long as we use prepared statements, the query \texttt{db.query(... some prepared statement ...)} will never throw an exception and exception handling is thus not required."
+
+% Use the \sq command to enter a subquestion
+\sq{2} Tell Charlie he is wrong by giving him a scenario in which attempting to perform a well-formed SQL query to a database may still yield an exception.
+
+\sq{1} How can Charlie handle exceptions?
+
+%%% Don't touch the following
+
+\endofdocument
+
+\end{document}

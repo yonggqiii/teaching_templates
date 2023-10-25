@@ -1,0 +1,34 @@
+% Exam question booklets must only have the exam and qn options enabled
+\documentclass[exam,soln]{yqteach}
+
+%% Add in any additional settings needed here
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% set the appropriate details for the module here
+\input{module_details}
+
+% Write the details of the exam here
+\setdocumenttitle{Final Assessment}
+\setduedate{1 January 2000}
+\settimeallowed{1 hour}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\maketitle
+
+% Use the \examsection command to start an exam section. The first argument is the section title, and the second argument is the total marks of this section
+\examsection{Multiple Choice Questions}{2}
+
+
+% Use the \q command to start a question. The argument denotes the number of marks this question is worth.
+% For example, \q{3} gives a new question worth 3 marks.
+\q{1} \answer \ansopt{B}. Users should be provided with the \emph{least} privilege necessary to do their job.
+
+%%% Don't touch the following
+
+\endofdocument
+
+\end{document}
