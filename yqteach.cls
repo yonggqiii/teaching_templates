@@ -61,7 +61,7 @@
 \fancyhead{}
 \fancyhead[RO,RE]{\yqheader}
 \fancyfoot{}
-\fancyfoot[LO,LE]{\sffamily \copyright\ \copyrightyear\ \institution. All rights reserved.}
+\fancyfoot[LO,LE]{\sffamily\footnotesize \copyright\ \copyrightyear\ \institution. All rights reserved.}
 \fancyfoot[RO,RE]{\sffamily \thepage /\pageref{LastPage}}
 
 %%% tables
@@ -288,11 +288,11 @@ clearly}. \textbf{Do NOT} use it for your rough work.\end{center}}
 \else
 %%%%%% assignment
 % assignment specific settings
-\newcommand{\settotalscore}[1]{\def\totalscore{#1}} % assignment total score
-\newcommand{\settotalweight}[1]{\def\totalweight{#1}} % assignment total weight
 \newcommand{\setdocumentsubtitle}[1]{\def\documentsubtitle{#1}} % assignment subtitle
 \ifyqqn
 %%%%%%%% assignment question
+\newcommand{\settotalscore}[1]{\def\totalscore{#1}} % assignment total score
+\newcommand{\settotalweight}[1]{\def\totalweight{#1}} % assignment total weight
 % header
 \def\yqheader{\sffamily\textbf{\modulecode} AY\shortacademicyear\ \semester\ \textbf{\documenttitle}}
 % titlepage
