@@ -1,4 +1,4 @@
-%% yqteach.cls 2023-10-25
+%% yqteach.cls 2023-10-28
 %% Copyright (C) 2023 Foo Yong Qi
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3
@@ -48,6 +48,47 @@
 \RequirePackage{amssymb}
 \RequirePackage{amsthm}
 
+\newtheoremstyle{yqthm}
+{10pt}                % Space above
+{}                % Space below
+{\slshape}        % Theorem body font % (default is "\upshape")
+{}                % Indent amount
+{\scshape}       % Theorem head font % (default is \mdseries)
+{.}               % Punctuation after theorem head % default: no punctuation
+{ }               % Space after theorem head
+{}                % Theorem head spec
+\theoremstyle{yqthm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{conjecture}{Conjecture}[section]
+
+% hyperlinks
+\RequirePackage{hyperref}       % hyperlinks
+\hypersetup{
+colorlinks=true,
+linkcolor=violet,
+filecolor=violet,
+urlcolor=violet,
+citecolor=violet
+}
+\def\sectionautorefname{Section}
+\def\subsectionautorefname{Subsection}
+\def\figureautorefname{Figure}
+\def\tableautorefname{Table}
+\def\lemmaautorefname{\textsc{Lemma}}
+\def\theoremautorefname{\textsc{Theorem}}
+\def\corollaryautorefname{\textsc{Corollary}}
+\def\propositionautorefname{\textsc{Proposition}}
+\def\conjectureautorefname{\textsc{Conjecture}}
+
+%%% captions
+\RequirePackage{caption, float}
+\captionsetup[table]{position=top}
+\DeclareCaptionFormat{yq}{\sffamily\textbf{#1#2}#3}
+\captionsetup{format=yq}
+
 %%% fonts
 \RequirePackage{libertine}
 \RequirePackage{inconsolata}
@@ -62,7 +103,7 @@
 \fancyhead[RO,RE]{\yqheader}
 \fancyfoot{}
 \fancyfoot[LO,LE]{\sffamily\footnotesize \copyright\ \copyrightyear\ \institution. All rights reserved.}
-\fancyfoot[RO,RE]{\sffamily \thepage /\pageref{LastPage}}
+\fancyfoot[RO,RE]{\sffamily \thepage /\numpages}
 
 %%% tables
 \RequirePackage{tabularx}
@@ -100,6 +141,8 @@
 \newcounter{questioncounter} % question counter
 \newcounter{subquestioncounter} % subquestion counter
 \regtotcounter{questioncounter} % to obtain total number of questions
+\def\totalquestions{\total{questioncounter}}
+\def\numpages{\pageref*{LastPage}}
 % question command
 \newcommand{\q}[2][]{\setcounter{subquestioncounter}{0}\refstepcounter{questioncounter}{\sffamily\bfseries Question \thequestioncounter\topicdisplay{#1}} \marksdisplay{#2}.}
 % subquestion command
@@ -192,15 +235,18 @@
 %%%%% exam question booklet
 \newcommand{\settotalscore}[1]{\def\totalscore{#1}} % total score
 \newcommand{\settotalweight}[1]{\def\totalweight{#1}} % total weightage
+\def\instructionshead{\item This question booklet comprises \textbf{\totalquestions\ questions} and \textbf{\numpages\ printed pages} including the cover page. All questions must be answered correctly to obtain the full score.}
+\def\clearinstructions{\def\instructionshead{}\def\instructionstail{}}
+\def\instructionstail{\item The total attainable score is \textbf{\totalscore}. The assessment constitutes \textbf{\totalweight\%} of your overall grade.
+\item You \textbf{cannot} communicate with anyone other than the invigilators throughout the quiz.
+\item \textbf{You must attempt the quiz on your own}. The University takes a zero-tolerance approach towards plagiarism and cheating.}
 % instructions
 \newenvironment{instructions}{
 {\sffamily\bfseries INSTRUCTIONS TO CANDIDATES} (\emph{please read carefully}):
 \begin{enumerate}[parsep=5pt]
-\item This question booklet comprises \textbf{\total{questioncounter} questions} and \textbf{\pageref{LastPage} printed pages} including the cover page. All questions must be answered correctly to obtain the full score.
+\instructionshead
 }{
-\item The total attainable score is \textbf{\totalscore}. The assessment constitutes \textbf{\totalweight\%} of your overall grade.
-\item You \textbf{cannot} communicate with anyone other than the invigilators throughout the quiz.
-\item \textbf{You must attempt the quiz on your own}. The University takes a zero-tolerance approach towards plagiarism and cheating.
+\instructionstail
 \end{enumerate}
 \pagebreak}
 \else

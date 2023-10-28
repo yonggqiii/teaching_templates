@@ -21,8 +21,13 @@
 
 \maketitle
 
+% if you want to remove the pre-defined instructions, simply issue the \clearinstructions command before the instructions environment.
+% \clearinstructions
+
 \begin{instructions}
-    % page count, question count, total score, total weightage and plagiarism/cheating notice are already pre-loaded
+    % page count, question count, total score, total weightage and plagiarism/cheating notice are already pre-loaded unless you used \clearinstructions
+    % if you want to show the number of questions and pages in this document, use the \totalquestions and \numpages commands respectively. For example:
+    % \item There are \totalquestions\ questions and \numpages\ pages.
     \item This is an \textbf{open-book}, \textbf{open-internet} assessment. You are allowed to refer to materials and access any resources (online or otherwise), except:
     \begin{itemize}
         \item You are \textbf{NOT allowed} to communicate with anyone. You must force-close your email client, messaging applications like Telegram, WeChat, etc before starting the quiz.
@@ -77,6 +82,8 @@ Charlie says, "as long as we use prepared statements, the query \texttt{db.query
 \sq{2} Tell Charlie he is wrong by giving him a scenario in which attempting to perform a well-formed SQL query to a database may still yield an exception.
 
 \sq{1} How can Charlie handle exceptions?
+
+
 
 %%% Don't touch the following
 
