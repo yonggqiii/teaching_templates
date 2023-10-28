@@ -253,6 +253,12 @@ citecolor=violet
 \ifyqans
 %%%%%%% exam answer booklet
 \newcommand{\settotalscore}[1]{\def\totalscore{#1}} % total score
+\def\instructions{\item This answer booklet contains \textbf{\numpages\ printed pages} including this cover page.
+    \item \textbf{Do NOT write your name anywhere in this document}.
+    \item Bubbles must be \textbf{completely shaded} with a \textbf{pencil (at least 2B)}. \textbf{You may write with a pencil or pen (no red ink)}.
+    \item Write and shade your Student Number (starting with \texttt{A}) on the right.
+    \item All your answers must be written/shaded in this answer booklet. No extra sheets will be accepted as answers. You may use the question booklet as scratch paper.}
+\def\setinstructions#1{\def\instructions{#1}}
 % titlepage
 \def\maketitle{{
 \centering
@@ -275,7 +281,7 @@ citecolor=violet
     \rule{\textwidth}{1pt}
 }
 
-\begin{minipage}[t]{\textwidth}
+\begin{minipage}[t][8cm]{\textwidth}
 
 \begin{wrapfigure}{r}{0.41\textwidth}
 \centering
@@ -284,11 +290,7 @@ citecolor=violet
 
 \textsf{\textbf{INSTRUCTIONS TO CANDIDATES}}:
 \begin{enumerate}[itemsep=5pt,leftmargin=20pt]
-\item This answer booklet contains \textbf{\pageref{LastPage} printed pages} including this cover page.
-    \item \textbf{Do NOT write your name anywhere in this document}.
-    \item Bubbles must be \textbf{completely shaded} with a \textbf{pencil (at least 2B)}. \textbf{You may write with a pencil or pen (no red ink)}.
-    \item Write and shade your Student Number (starting with \texttt{A}) on the right.
-    \item All your answers must be written/shaded in this answer booklet. No extra sheets will be accepted as answers. You may use the question booklet as scratch paper.
+\instructions
 \end{enumerate}
 \end{minipage}
 }

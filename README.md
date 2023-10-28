@@ -187,6 +187,16 @@ Input the details of the module. You can issue `\input{module_details}` if the m
 
 Issue the commands `\setdocumenttitle{Your Assessment Name}`, `\setduedate{Date Of Assessment}`, `\settimeallowed{Exam Time Limit}` and `\settotalscore{Exam Total Attainable Score}`. Example values can be seen in the `exam_ans.tex` file.
 
+The template automatically generates instructions for your students. If you would like to override these instructions, use the `\setinstructions{Your Instructions}` command. For example,
+
+```latex
+\setinstructions{
+\item This answer booklet consists of \numpages\ printed pages.
+}
+```
+
+Instruction items are delimited by `\item`.
+
 Then you can begin the document like so:
 
 ```latex
