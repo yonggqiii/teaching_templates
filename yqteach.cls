@@ -15,12 +15,14 @@
 \newif\ifyqexam
 \newif\ifyqqn
 \newif\ifyqans
+\newif\ifyqtut
 
 \DeclareOption{exam}{\yqexamtrue}
 \DeclareOption{assignment}{\yqexamfalse}
 \DeclareOption{qn}{\yqqntrue\yqansfalse}
 \DeclareOption{ans}{\yqqnfalse\yqanstrue}
 \DeclareOption{soln}{\yqqnfalse\yqansfalse}
+\DeclareOption{tut}{\yqqnfalse\yqansfalse\yqexamfalse\yqtuttrue}
 \ProcessOptions\relax
 
 \LoadClass[12pt,a4paper,twoside]{article}
@@ -125,6 +127,94 @@ citecolor=violet
 %%% if-else macros
 \RequirePackage{ifthen}
 
+
+
+%%% Counters
+\newcounter{questioncounter} % question counter
+\newcounter{subquestioncounter} % subquestion counter
+\regtotcounter{questioncounter} % to obtain total number of questions
+\def\totalquestions{\total{questioncounter}}
+\def\numpages{\pageref*{LastPage}}
+
+%% Topic display word
+\def \ifempty#1{\def\temp{#1}\ifx\temp\empty}
+\def\topicdisplay#1{\ifempty{#1}\else\ (#1)\fi}
+
+
+\ifyqtut
+% title formatting
+\RequirePackage[explicit]{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries\sffamily}{\thesection}{1em}{\MakeUppercase{#1}}
+
+\titleformat{\subsection}
+  {\large\bfseries\sffamily}{\thesubsection}{1em}{#1}
+
+\titleformat{\subsubsection}[runin]
+  {\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{\normalfont\emph{#1}.}
+
+\titleformat{\paragraph}[runin]
+  {\normalfont}{\theparagraph}{1em}{\normalfont\emph{#1}.}
+\newcommand{\setdocumentsubtitle}[1]{\def\documentsubtitle{#1}}
+% question command
+\newcommand{\q}[1][]{\setcounter{subquestioncounter}{0}\refstepcounter{questioncounter}{\sffamily\bfseries Question \thequestioncounter\topicdisplay{#1}}.}
+% subquestion command
+\newcommand{\sq}[1][]{\refstepcounter{subquestioncounter}{\bfseries\sffamily Question \thequestioncounter} (\roman{subquestioncounter})\topicdisplay{#1}.\ }
+\makeatletter
+% custom question command
+\def\cq{%
+   \@ifnextchar[%
+     {\cq@i}
+     {\cq@i[1]}%
+}
+\def\cq@i[#1]{%
+   \@ifnextchar[%
+     {\cq@ii{#1}}
+     {\cq@ii{#1}[]}%
+}
+\def\cq@ii#1[#2]{%
+  \setcounter{questioncounter}{#1}\setcounter{subquestioncounter}{0}{\bfseries\sffamily Question \thequestioncounter\topicdisplay{#2}}.
+}
+% custom subquestion command
+\def\csq{%
+   \@ifnextchar[%
+     {\csq@i}
+     {\csq@i[1]}%
+}
+\def\csq@i[#1]{%
+   \@ifnextchar[%
+     {\csq@ii[#1]}
+     {\csq@ii[#1][1]}%
+}
+\def\csq@ii[#1][#2]{%
+   \@ifnextchar[%
+     {\csq@iii[#1][#2]}
+     {\csq@iii[#1][#2][]}%
+}
+\def\csq@iii[#1][#2][#3]{%
+  \setcounter{questioncounter}{#1}\setcounter{subquestioncounter}{#2}{\bfseries\sffamily Question \thequestioncounter} (\roman{subquestioncounter})\topicdisplay{#3}.}
+\makeatother
+\def\endofdocument{\begin{center}\large\sffamily-- \textbf{End of \documenttitle} --\end{center}}
+\def\maketitle{{
+\centering
+    \large
+    {\sffamily\textbf{\MakeUppercase{\institution}}}\\
+    \department\\
+    {\sffamily\textbf{\modulecode\textemdash\moduletitle}}\\
+    \normalsize
+    Academic Year \fullacademicyear, \semester\\
+    {\MakeUppercase{\sffamily\textbf{\documenttitle}}}\\
+    \Large
+    {\MakeUppercase{\sffamily\textbf{\documentsubtitle}}}\\
+    \large
+    \rule{\textwidth}{1pt}
+}}
+
+\def\yqheader{\sffamily\textbf{\modulecode} AY\shortacademicyear\ \semester\ \textbf{\documenttitle} \documentsubtitle}
+
+\else
+
 %%% Exam sections
 \newcommand{\examsection}[2]{\section*{{\sffamily\MakeUppercase{#1} \marksdisplay{#2}}}}
 \newcommand{\examsubsection}[2]{\subsection*{{\sffamily #1 \marksdisplay{#2}}}}
@@ -133,16 +223,7 @@ citecolor=violet
 %%% Marks display word
 \newcommand{\marksdisplay}[1]{\ifthenelse{\equal{#1}{1}}{[#1 mark]}{[#1 marks]}}
 
-%% Topic display word
-\def \ifempty#1{\def\temp{#1} \ifx\temp\empty }
-\def\topicdisplay#1{\ifempty{#1}\else\ (#1) \fi}
 
-%%% Exam questions
-\newcounter{questioncounter} % question counter
-\newcounter{subquestioncounter} % subquestion counter
-\regtotcounter{questioncounter} % to obtain total number of questions
-\def\totalquestions{\total{questioncounter}}
-\def\numpages{\pageref*{LastPage}}
 % question command
 \newcommand{\q}[2][]{\setcounter{subquestioncounter}{0}\refstepcounter{questioncounter}{\sffamily\bfseries Question \thequestioncounter\topicdisplay{#1}} \marksdisplay{#2}.}
 % subquestion command
@@ -181,11 +262,13 @@ citecolor=violet
 \def\csq@iii[#1][#2][#3]#4{%
   \setcounter{questioncounter}{#1}\setcounter{subquestioncounter}{#2}{\bfseries\sffamily Question \thequestioncounter} (\roman{subquestioncounter})\topicdisplay{#3} \marksdisplay{#4}.}
 \makeatother
-
+\fi
 % Exam MCQ options
 \newenvironment{letteroptions}{\begin{enumerate}[label={\bfseries\sffamily(\Alph*)}]}{\end{enumerate}}
 
 %%%%% document-specific settings
+\ifyqtut
+\else
 \ifyqqn
 %%% any question booklet
 % set document end
@@ -305,7 +388,7 @@ citecolor=violet
   \large
   
 \bgroup
-\def\arraystretch{1.8}
+\def\arraystretch{1.4}
 \begin{tabular}{|l|l|p{0.4\textwidth}|}
 \hline
 \textbf{Section} & \textbf{Marks}& \textbf{Remarks}\\
@@ -392,4 +475,5 @@ clearly}. \textbf{Do NOT} use it for your rough work.\end{center}}
 
 \fi
 
+\fi
 \fi

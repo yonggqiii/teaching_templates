@@ -1,0 +1,41 @@
+% Tutorials must only have the tut option enabled
+\documentclass[tut]{yqteach}
+
+%% Add in any additional settings needed here
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% set the appropriate details for the module here
+\input{module_details}
+
+% Write the details of the tutorial here
+\setdocumenttitle{Tutorial 1}
+\setdocumentsubtitle{Design}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\maketitle
+
+
+\section*{Multiple Choice Questions}
+
+
+% Use the \q command to start a question.
+% You may also add an additional topic like \q[Algebra] to give Question 1 (Algebra).
+\q[Security Fundamentals] Which of the following statements is \textbf{not} a fundamental concept in security?
+
+\sq Lol.
+% Use the letteroptions environment for MCQ letter options
+\begin{letteroptions}
+    \item Assume Breach: organizations should take active steps to mitigate, monitor, detect and deal with threats to their applications and systems.
+    \item Maximum Functionality: privileged users (like administrators) should be given the maximum amount of access to features of their applications to deal with threats swiftly.
+    \item Defence-in-Depth: Having multiple layers of security so that threats are mitigated even if they successfully gets around one security measure.
+    \item Attack Surface Reduction: creating smaller systems that have a lower attack surface so that there are fewer vectors that an attacker may take to exploit the application.
+\end{letteroptions}
+
+%%% Don't touch the following
+
+\endofdocument
+
+\end{document}
