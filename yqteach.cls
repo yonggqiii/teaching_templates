@@ -9,7 +9,7 @@
 % version 2003/12/01 or later.
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{yqteach}
-[2023/10/24 v0.1 Yong Qi Foo's teaching document formats]
+[2026/04/03 v0.2 Yong Qi Foo's teaching document formats]
 
 % types of documents
 \newif\ifyqexam
@@ -127,6 +127,20 @@ citecolor=violet
 %%% if-else macros
 \RequirePackage{ifthen}
 
+% title formatting
+\RequirePackage[explicit]{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries\sffamily}{\thesection}{1em}{#1}
+
+\titleformat{\subsection}
+  {\large\bfseries\sffamily}{\thesubsection}{1em}{#1}
+
+\titleformat{\subsubsection}[runin]
+  {\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{\normalfont\emph{#1}.}
+
+\titleformat{\paragraph}[runin]
+  {\normalfont}{\theparagraph}{1em}{\normalfont\emph{#1}.}
 
 
 %%% Counters
@@ -142,20 +156,6 @@ citecolor=violet
 
 
 \ifyqtut
-% title formatting
-\RequirePackage[explicit]{titlesec}
-
-\titleformat{\section}
-  {\Large\bfseries\sffamily}{\thesection}{1em}{\MakeUppercase{#1}}
-
-\titleformat{\subsection}
-  {\large\bfseries\sffamily}{\thesubsection}{1em}{#1}
-
-\titleformat{\subsubsection}[runin]
-  {\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{\normalfont\emph{#1}.}
-
-\titleformat{\paragraph}[runin]
-  {\normalfont}{\theparagraph}{1em}{\normalfont\emph{#1}.}
 \newcommand{\setdocumentsubtitle}[1]{\def\documentsubtitle{#1}}
 % question command
 \newcommand{\q}[1][]{\setcounter{subquestioncounter}{0}\refstepcounter{questioncounter}{\sffamily\bfseries Question \thequestioncounter\topicdisplay{#1}}.}
@@ -199,14 +199,14 @@ citecolor=violet
 \def\maketitle{{
 \centering
     \large
-    {\sffamily\textbf{\MakeUppercase{\institution}}}\\
+    {\sffamily\textbf{\institution}}\\
     \department\\
     {\sffamily\textbf{\modulecode\textemdash\moduletitle}}\\
     \normalsize
     Academic Year \fullacademicyear, \semester\\
-    {\MakeUppercase{\sffamily\textbf{\documenttitle}}}\\
+    {\sffamily\textbf{\documenttitle}}\\
     \Large
-    {\MakeUppercase{\sffamily\textbf{\documentsubtitle}}}\\
+    {\sffamily\textbf{\documentsubtitle}}\\
     \large
     \rule{\textwidth}{1pt}
 }}
@@ -216,7 +216,7 @@ citecolor=violet
 \else
 
 %%% Exam sections
-\newcommand{\examsection}[2]{\section*{{\sffamily\MakeUppercase{#1} \marksdisplay{#2}}}}
+\newcommand{\examsection}[2]{\section*{{\sffamily#1 \marksdisplay{#2}}}}
 \newcommand{\examsubsection}[2]{\subsection*{{\sffamily #1 \marksdisplay{#2}}}}
 \newcommand{\examsubsubsection}[2]{\subsubsection*{{\sffamily #1 \marksdisplay{#2}}}}
 
@@ -297,13 +297,13 @@ citecolor=violet
 \def\maketitle{{
 \centering
     \large
-    {\sffamily\textbf{\MakeUppercase{\institution}}}\\
+    {\Large\sffamily\textbf{\institution}}\\
     \department\\
     {\sffamily\textbf{\modulecode\textemdash\moduletitle}}\\
     \normalsize
     Academic Year \fullacademicyear, \semester\\
     \Large
-    {\MakeUppercase{\sffamily\textbf{\documenttitle}}}\\
+    {\sffamily\textbf{\documenttitle}}\\
     \large
     \yqkind
 
@@ -346,13 +346,13 @@ citecolor=violet
 \def\maketitle{{
 \centering
     \large
-    {\sffamily\textbf{\MakeUppercase{\institution}}}\\
+    {\Large\sffamily\textbf{\institution}}\\
     \department\\
     {\sffamily\textbf{\modulecode\textemdash\moduletitle}}\\
     \normalsize
     Academic Year \fullacademicyear, \semester\\
     \Large
-    {\MakeUppercase{\sffamily\textbf{\documenttitle}}}\\
+    {\sffamily\textbf{\documenttitle}}\\
     \large
     \yqkind
 
@@ -430,14 +430,14 @@ clearly}. \textbf{Do NOT} use it for your rough work.\end{center}}
 \def\maketitle{{
 \centering
     \large
-    {\sffamily\textbf{\MakeUppercase{\institution}}}\\
+    {\Large\sffamily\textbf{\institution}}\\
     \department\\
     {\sffamily\textbf{\modulecode\textemdash\moduletitle}}\\
     \normalsize
     Academic Year \fullacademicyear, \semester\\
-    {\MakeUppercase{\sffamily\textbf{\documenttitle}}}\\
+    {\sffamily\textbf{\documenttitle}}\\
     \Large
-    {\MakeUppercase{\sffamily\textbf{\documentsubtitle}}}\\
+    {\sffamily\textbf{\documentsubtitle}}\\
     \large
 
     \begin{tabularx}{\textwidth}{
@@ -458,13 +458,13 @@ clearly}. \textbf{Do NOT} use it for your rough work.\end{center}}
 \def\maketitle{{
 \centering
     \large
-    {\sffamily\textbf{\MakeUppercase{\institution}}}\\
+    {\Large\sffamily\textbf{\institution}}\\
     \department\\
     {\sffamily\textbf{\modulecode\textemdash\moduletitle}}\\
     \normalsize
     Academic Year \fullacademicyear, \semester\\
     \large
-    {\sffamily\bfseries\MakeUppercase{\documenttitle\ Solutions}}
+    {\sffamily\bfseries\documenttitle\ Solutions}
     
     \rule{\textwidth}{1pt}
 }}
